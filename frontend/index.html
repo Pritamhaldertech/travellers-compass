@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traveller's Compass</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🌍 Traveller's Compass</h1>
+        <p class="subtitle">Discover amazing places in any city</p>
+        
+        <div class="search-container">
+            <input type="text" id="cityInput" placeholder="Enter a city name (e.g., Paris, London, Tokyo)" />
+            <button id="searchBtn">🔍 Search Attractions</button>
+        </div>
+        
+        <div id="loading" class="loading hidden">Loading attractions...</div>
+        
+        <div id="results" class="results"></div>
+        
+        <div class="favorites-section">
+            <h2>⭐ My Favorites</h2>
+            <div id="favoritesList" class="favorites-list"></div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
