@@ -14,10 +14,14 @@ A web application to discover tourist attractions in any city and save your favo
 ## 🖼️ Screenshots
 
 ### Desktop View
-*[Add your desktop screenshot here]*
+<img width="1680" height="1047" alt="Screenshot 2026-04-08 at 19 11 10" src="https://github.com/user-attachments/assets/50f5da8e-9d64-430a-9e5e-2c54b605f8f2" />
+<img width="1680" height="1047" alt="Screenshot 2026-04-08 at 19 10 46" src="https://github.com/user-attachments/assets/5ed128c6-2406-45f3-bd97-bdca5df63748" />
+
 
 ### Mobile View
-*[Add your mobile screenshot here]*
+<img width="818" height="1050" alt="Screenshot 2026-04-08 at 19 40 21" src="https://github.com/user-attachments/assets/5e9e9373-eca6-41a0-9bbb-4e9a06b0825e" />
+
+
 
 ## 📋 Prerequisites
 
