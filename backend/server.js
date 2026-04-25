@@ -1,88 +1,56 @@
+require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
+const path = require('path');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-app.use(cors());
 app.use(express.json());
-app.use(express.static('../frontend'));
+app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
-// Test endpoint
-app.get('/api/test', (req, res) => {
-    res.json({ message: 'Backend is working!' });
-});
+// Mock attractions data
+const attractionsData = {
+    'paris': [
+        { name: 'Eiffel Tower', description: 'Iconic iron lattice tower on the Champ de Mars, symbol of France.', image: 'https://cdn.pixabay.com/photo/2018/04/25/16/23/eiffel-tower-3349815_640.jpg', kind: 'landmark' },
+        { name: 'Louvre Museum', description: 'World-famous art museum housing the Mona Lisa and Venus de Milo.', image: 'https://cdn.pixabay.com/photo/2014/10/20/08/48/louvre-494773_640.jpg', kind: 'museum' },
+        { name: 'Notre-Dame Cathedral', description: 'Gothic Catholic cathedral with stunning rose windows.', image: 'https://cdn.pixabay.com/photo/2018/05/27/17/07/notre-dame-3433685_640.jpg', kind: 'church' }
+    ],
+    'london': [
+        { name: 'Big Ben', description: 'Iconic clock tower at the Houses of Parliament.', image: 'https://cdn.pixabay.com/photo/2014/10/10/19/43/big-ben-483600_640.jpg', kind: 'landmark' },
+        { name: 'London Eye', description: 'Giant observation wheel on the South Bank.', image: 'https://cdn.pixabay.com/photo/2018/01/25/18/21/london-eye-3106463_640.jpg', kind: 'attraction' },
+        { name: 'British Museum', description: 'World-renowned museum of history and culture.', image: 'https://cdn.pixabay.com/photo/2014/08/13/13/10/british-museum-417067_640.jpg', kind: 'museum' }
+    ],
+    'tokyo': [
+        { name: 'Tokyo Tower', description: 'Orange and white Eiffel Tower-inspired landmark.', image: 'https://cdn.pixabay.com/photo/2017/03/19/15/58/tokyo-tower-2153965_640.jpg', kind: 'landmark' },
+        { name: 'Senso-ji Temple', description: 'Ancient Buddhist temple in Asakusa.', image: 'https://cdn.pixabay.com/photo/2016/11/02/11/13/architecture-1790958_640.jpg', kind: 'temple' },
+        { name: 'Shibuya Crossing', description: 'Famous busy pedestrian scramble crossing.', image: 'https://cdn.pixabay.com/photo/2017/03/16/14/42/shinjuku-2149259_640.jpg', kind: 'attraction' }
+    ],
+    'rome': [
+        { name: 'Colosseum', description: 'Ancient amphitheater, icon of Rome.', image: 'https://cdn.pixabay.com/photo/2016/11/18/14/18/colosseum-1837304_640.jpg', kind: 'landmark' },
+        { name: 'Trevi Fountain', description: 'Baroque fountain where visitors toss coins.', image: 'https://cdn.pixabay.com/photo/2017/03/23/00/09/trevi-fountain-2166968_640.jpg', kind: 'fountain' },
+        { name: 'Vatican City', description: 'Independent city-state, home of the Pope.', image: 'https://cdn.pixabay.com/photo/2015/08/04/19/44/st-peters-874512_640.jpg', kind: 'religious' }
+    ]
+};
 
-// Search attractions endpoint with mock data (for testing)
-app.get('/api/attractions', (req, res) => {
+app.get('/api/places', (req, res) => {
     const city = req.query.city;
     
     if (!city) {
-        return res.status(400).json({ error: 'Please provide a city name' });
+        return res.status(400).json({ error: 'City name is required' });
     }
-    
-    console.log(`Searching for attractions in: ${city}`);
-    
-    // Mock attraction data for different cities
-    const mockAttractions = {
-        'paris': [
-            { name: 'Eiffel Tower', kind: 'landmark', distance: 500 },
-            { name: 'Louvre Museum', kind: 'museum', distance: 1200 },
-            { name: 'Notre-Dame Cathedral', kind: 'church', distance: 1800 },
-            { name: 'Sacré-Cœur Basilica', kind: 'church', distance: 2500 },
-            { name: 'Arc de Triomphe', kind: 'landmark', distance: 2200 }
-        ],
-        'london': [
-            { name: 'Big Ben', kind: 'landmark', distance: 300 },
-            { name: 'London Eye', kind: 'attraction', distance: 600 },
-            { name: 'British Museum', kind: 'museum', distance: 1500 },
-            { name: 'Tower of London', kind: 'castle', distance: 2000 },
-            { name: 'Buckingham Palace', kind: 'palace', distance: 1800 }
-        ],
-        'tokyo': [
-            { name: 'Tokyo Tower', kind: 'landmark', distance: 400 },
-            { name: 'Senso-ji Temple', kind: 'temple', distance: 2500 },
-            { name: 'Shibuya Crossing', kind: 'attraction', distance: 800 },
-            { name: 'Meiji Shrine', kind: 'shrine', distance: 1500 },
-            { name: 'Shinjuku Gyoen', kind: 'park', distance: 2000 }
-        ],
-        'berlin': [
-            { name: 'Brandenburg Gate', kind: 'landmark', distance: 200 },
-            { name: 'Reichstag Building', kind: 'government', distance: 400 },
-            { name: 'Berlin Wall Memorial', kind: 'memorial', distance: 1500 },
-            { name: 'Museum Island', kind: 'museum', distance: 1000 },
-            { name: 'Checkpoint Charlie', kind: 'museum', distance: 1200 }
-        ],
-        'rome': [
-            { name: 'Colosseum', kind: 'landmark', distance: 300 },
-            { name: 'Vatican City', kind: 'religious', distance: 2000 },
-            { name: 'Trevi Fountain', kind: 'fountain', distance: 800 },
-            { name: 'Pantheon', kind: 'temple', distance: 600 },
-            { name: 'Spanish Steps', kind: 'landmark', distance: 1000 }
-        ]
-    };
     
     const cityLower = city.toLowerCase();
+    const attractions = attractionsData[cityLower];
     
-    // Check if we have data for this city
-    if (mockAttractions[cityLower]) {
-        res.json({
-            city: city,
-            attractions: mockAttractions[cityLower]
-        });
-    } else {
-        // For cities not in our mock data, return a default message
-        res.json({
-            city: city,
-            attractions: [
-                { name: `Popular attraction in ${city}`, kind: 'landmark', distance: 500 },
-                { name: `Historic site in ${city}`, kind: 'historical', distance: 1200 },
-                { name: `Cultural center in ${city}`, kind: 'culture', distance: 1800 },
-                { name: `${city} City Park`, kind: 'park', distance: 800 },
-                { name: `${city} Museum`, kind: 'museum', distance: 1500 }
-            ]
-        });
+    if (!attractions) {
+        return res.json([]);
     }
+    
+    res.json(attractions);
+});
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));
 });
 
 app.listen(PORT, () => {
