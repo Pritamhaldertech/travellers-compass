@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
-// Mock attractions data
+// Mock attractions data - WORKING VERSION
 const attractionsData = {
     'paris': [
         { name: 'Eiffel Tower', description: 'Iconic iron lattice tower on the Champ de Mars, symbol of France.', image: 'https://cdn.pixabay.com/photo/2018/04/25/16/23/eiffel-tower-3349815_640.jpg', kind: 'landmark' },
