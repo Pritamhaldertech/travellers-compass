@@ -14,12 +14,16 @@ A web application to discover tourist attractions in any city and save your favo
 ## 🖼️ Screenshots
 
 ### Desktop View
-<img width="1680" height="1047" alt="Screenshot 2026-04-08 at 19 11 10" src="https://github.com/user-attachments/assets/50f5da8e-9d64-430a-9e5e-2c54b605f8f2" />
-<img width="1680" height="1047" alt="Screenshot 2026-04-08 at 19 10 46" src="https://github.com/user-attachments/assets/5ed128c6-2406-45f3-bd97-bdca5df63748" />
+<img width="1680" height="1050" alt="Screenshot 2026-04-26 at 12 46 23" src="https://github.com/user-attachments/assets/d84117df-acb0-4cd0-867f-d9fcef4f48a7" />
+<img width="1680" height="1050" alt="Screenshot 2026-04-26 at 12 47 02" src="https://github.com/user-attachments/assets/bee58af2-cf96-4273-a638-a757d185b5c4" />
+<img width="1680" height="1050" alt="Screenshot 2026-04-26 at 12 47 40" src="https://github.com/user-attachments/assets/d156b874-eafe-4978-b8d3-e6287eaa64f7" />
+
 
 
 ### Mobile View
-<img width="818" height="1050" alt="Screenshot 2026-04-08 at 19 40 21" src="https://github.com/user-attachments/assets/5e9e9373-eca6-41a0-9bbb-4e9a06b0825e" />
+<img width="818" height="1050" alt="Screenshot 2026-04-08 at 19 40 21" src="https://github.com/user-attachments/assets/a2776543-94ec-4486-82a6-be3e12f0799a" />
+<img width="818" height="1050" alt="Screenshot 2026-04-08 at 19 40 21 2" src="https://github.com/user-attachments/assets/7148904e-bef7-4ce0-b6c5-efee8935dacb" />
+
 
 
 
