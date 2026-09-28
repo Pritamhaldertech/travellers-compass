@@ -1,54 +1,95 @@
-# 🌍 Traveller's Compass
+# Traveller's Compass
 
-A web application that helps travellers discover places in any city. Users can search for a city, view place details, and save favourites for trip planning. Built for the DLBCSPJWD01 course project.
+A small full-stack web app for finding attractions in a city and saving favourites for trip planning. Built with a Node.js/Express backend and a vanilla JavaScript frontend.
 
-## ✨ Features
+## Features
 
-- 🔍 Search for places/cities using live external API (WeatherAPI)
-- 📝 View place names, regions, and coordinates
-- ❤️ Save favourites to browser LocalStorage
-- 🗑️ Remove favourites from your list
-- 📱 Fully responsive design (mobile + desktop)
-- ⚡ Backend API served with Node.js + Express
+- Search attractions by city name
+- Attraction cards with name, category, description and image
+- Save favourites and remove them again (stored in the browser's localStorage, so they survive a page reload)
+- Loading and error states for failed or empty searches
+- Responsive layout for mobile and desktop
+- REST endpoint with input validation (`400` when no city is given)
 
-## 🖼️ Screenshots
+## Screenshots
 
-### Desktop View
-<img width="1680" height="1050" alt="Screenshot 2026-04-26 at 12 47 40" src="https://github.com/user-attachments/assets/ec50f338-01e9-4c99-b20b-14287097c68c" />
-<img width="1680" height="1050" alt="Screenshot 2026-04-26 at 12 46 23" src="https://github.com/user-attachments/assets/7d37d974-1fa7-4507-bbed-b63e8f5f0bd2" />
+### Desktop
+<img width="840" alt="Desktop view" src="https://github.com/user-attachments/assets/ec50f338-01e9-4c99-b20b-14287097c68c" />
+<img width="840" alt="Search results" src="https://github.com/user-attachments/assets/7d37d974-1fa7-4507-bbed-b63e8f5f0bd2" />
 
-### Mobile View
-<img width="1680" height="1050" alt="Screenshot 2026-04-26 at 12 46 46" src="https://github.com/user-attachments/assets/72efedb4-1e90-4e92-a414-7b22e0e0c32e" />
+### Mobile
+<img width="840" alt="Mobile view" src="https://github.com/user-attachments/assets/72efedb4-1e90-4e92-a414-7b22e0e0c32e" />
 
-### Favourites Section
-<img width="1680" height="1050" alt="Screenshot 2026-04-26 at 12 47 02" src="https://github.com/user-attachments/assets/a19af0cb-81fe-4077-9228-1ee70a2524a3" />
+### Favourites
+<img width="840" alt="Favourites section" src="https://github.com/user-attachments/assets/a19af0cb-81fe-4077-9228-1ee70a2524a3" />
 
+## How it works
 
-## 📋 Prerequisites
+```
+Browser (HTML, CSS, JS)  ──  GET /api/places?city=paris  ──▶  Express server (Node.js)
+        ▲                                                           │
+        └──────────────────  JSON list of attractions  ◀────────────┘
+Favourites are kept in the browser's localStorage.
+```
 
-Before you begin, ensure you have the following installed:
+The backend currently serves a curated sample dataset for **Paris, London, Tokyo and Rome**. The endpoint is written so the data source can be swapped for a live places API (for example OpenTripMap or Google Places) without changing the frontend.
 
-- **Node.js** (v14 or higher) – [Download here](https://nodejs.org/)
-- **npm** (comes with Node.js)
-- A web browser (Chrome, Firefox, Safari, etc.)
+## Tech stack
 
-## 🔑 API Key Required
+| Layer    | Technology                           |
+|----------|--------------------------------------|
+| Frontend | HTML5, CSS3, vanilla JavaScript (fetch, async/await) |
+| Backend  | Node.js, Express                     |
+| Storage  | Browser localStorage                 |
 
-This application uses the **WeatherAPI** to fetch real place data. You need a free API key.
+## Run it locally
 
-### How to get a WeatherAPI key:
-
-1. Go to [https://www.weatherapi.com/signup.aspx](https://www.weatherapi.com/signup.aspx)
-2. Sign up for a free account (no credit card required)
-3. Your API key will be displayed immediately after signup
-4. Copy the key
-
-## 🚀 Installation Instructions
-
-Follow these steps to get the application running on your local machine.
-
-### Step 1: Clone the repository
+Requirements: [Node.js](https://nodejs.org/) 18 or newer.
 
 ```bash
 git clone https://github.com/Pritamhaldertech/travellers-compass.git
-cd travellers-compass
+cd travellers-compass/backend
+npm install
+npm start
+```
+
+Then open http://localhost:3000 and search for `Paris`, `London`, `Tokyo` or `Rome`.
+
+## API
+
+| Method | Endpoint                  | Response |
+|--------|---------------------------|----------|
+| GET    | `/api/places?city=<name>` | `200` with an array of attractions (empty if the city is unknown), `400` if `city` is missing |
+
+Example response:
+
+```json
+[
+  { "name": "Eiffel Tower", "description": "Iconic iron lattice tower on the Champ de Mars, symbol of France.", "kind": "landmark", "image": "https://..." }
+]
+```
+
+## Project structure
+
+```
+travellers-compass/
+├── backend/
+│   ├── server.js       # Express server and /api/places endpoint
+│   └── package.json
+└── frontend/
+    ├── index.html
+    ├── style.css
+    └── script.js       # search, rendering, favourites
+```
+
+## Possible next steps
+
+- Connect a live places API behind the existing endpoint
+- Add tests for the API (Jest + Supertest)
+- Deploy the app (for example on Render)
+
+## Author
+
+Pritam Halder · [Portfolio](https://pritamhaldertech.github.io) · [LinkedIn](https://www.linkedin.com/in/pritamhaldertech)
+
+Built for the IU course project DLBCSPJWD01 (Web Application Development).
